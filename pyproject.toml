@@ -1,0 +1,50 @@
+[project]
+name = "PlaywrightWithPython"
+version = "1.0.0"
+description = "Enterprise-style Python Playwright UI automation starter framework"
+requires-python = ">=3.13"
+dependencies = [
+  "playwright>=1.50,<2.0",
+  "pytest>=8.0,<9.0",
+  "pytest-playwright>=0.7,<1.0",
+  "PyYAML>=6.0,<7.0",
+  "pydantic>=2.0,<3.0",
+  "pydantic-settings>=2.0,<3.0",
+  "python-dotenv>=1.0,<2.0",
+  "allure-pytest>=2.13,<3.0",
+  "pytest-xdist>=3.5,<4.0",
+]
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = [
+  "core*", "pages*", "workflows*"
+]
+
+
+
+
+[project.optional-dependencies]
+dev = ["ruff>=0.9", "mypy>=1.10"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-ra --strict-markers --strict-config"
+markers = [
+  "smoke: critical business functionality",
+  "regression: broader functional coverage",
+  "negative: invalid input and error handling",
+  "validation: client/server-side form validation",
+  "auth: authentication and session scenarios",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"

@@ -1,0 +1,31 @@
+application:
+  name: foundit Application
+  base_url: "https://www.foundit.in/"
+
+browser:
+  name: chromium
+  headless: false
+  slow_mo_ms: 0
+  viewport:
+    width: 1440
+    height: 900
+
+timeouts:
+  action_ms: 10000
+  navigation_ms: 30000
+  expect_ms: 10000
+
+login:
+  path: "/rio/login/seeker"
+  username_label: "Email ID / Phone Number *"
+  password_label: "Password *"
+  submit_button: "submit"
+  success_indicator: "Welcome"
+  error_indicator: "Invalid email"
+  logout_button: "Logout"
+execution:
+  workers: 2
+  retries: 0
+
+artifacts:
+  directory: "artifacts"

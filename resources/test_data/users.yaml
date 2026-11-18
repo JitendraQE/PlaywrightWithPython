@@ -1,0 +1,12 @@
+# Use synthetic test accounts only. Inject real credentials through CI secrets.
+valid_user:
+  username_env: LOGIN_USERNAME
+  password_env: LOGIN_PASSWORD
+
+invalid_user:
+  username: "invalid.user@example.test"
+  password: "incorrect-password"
+
+empty_user:
+  username: ""
+  password: ""
