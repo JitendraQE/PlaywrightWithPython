@@ -2,8 +2,6 @@
 import logging
 import os
 from pathlib import Path
-
-import allure
 import pytest
 from dotenv import load_dotenv
 from playwright.sync_api import Page
