@@ -105,14 +105,17 @@ def pytest_runtest_makereport(item, call):
             getattr(item, f"rep_{phase}", None)
             for phase in ("setup", "call", "teardown")
         ]
+
         failed_report = next(
             (phase_report for phase_report in reports if phase_report and phase_report.failed),
             None,
         )
+
         skipped_report = next(
             (phase_report for phase_report in reports if phase_report and phase_report.skipped),
             None,
         )
+
         if failed_report:
             logger.error("FAIL %s (phase: %s)", item.nodeid, failed_report.when)
         elif skipped_report:
@@ -129,17 +132,22 @@ def pytest_runtest_makereport(item, call):
 
     artifacts_dir = Path("artifacts") / "failures"
     artifacts_dir.mkdir(parents=True, exist_ok=True)
+
     safe_name = item.nodeid.replace("/", "_").replace("::", "_").replace(" ", "_")
 
     try:
         screenshot_path = artifacts_dir / f"{safe_name}.png"
+
         page.screenshot(path=str(screenshot_path), full_page=True)
-        allure.attach.file(
-            str(screenshot_path),
-            name="Failure screenshot",
-            attachment_type=allure.attachment_type.PNG,
-        )
-        logger.info("Attached failure screenshot for %s", item.nodeid)
+
+        logger.info("Failure screenshot saved: %s", screenshot_path)
+
     except Exception as exc:
-        logger.warning("Could not capture failure screenshot for %s: %s", item.nodeid, exc)
-        item.warn(pytest.PytestWarning(f"Could not capture failure screenshot: {exc}"))
+        logger.warning(
+            "Could not capture failure screenshot for %s: %s",
+            item.nodeid,
+            exc,
+        )
+        item.warn(
+            pytest.PytestWarning(f"Could not capture failure screenshot: {exc}")
+        )
