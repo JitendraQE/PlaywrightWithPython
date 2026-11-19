@@ -4,7 +4,7 @@ application:
 
 browser:
   name: chromium
-  headless: false
+  headless: true
   slow_mo_ms: 0
   viewport:
     width: 1440
